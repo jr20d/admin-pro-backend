@@ -34,7 +34,7 @@ const crearHospital = async (req, res) =>{
         });
     }
     catch(error){
-        console.log(error),
+        console.log(error);
         res.status(500).json({
             ok: false,
             msg: 'Hablar con el administrador'
