@@ -104,10 +104,19 @@ const actualizarUsuario = async (req, res = response) =>{
             });
         }
         else{
-            res.status(406).json({
-                ok: false,
-                msg: 'No puede realizar cambios como el nombre o el correo de un usuario de Google'
-            });
+            const usuarioActualizado = await Usuario.findByIdAndUpdate(uid, campos, {new: true});
+            if (usuarioDB.email !== usuarioActualizado.email || usuarioDB.nombre !== usuarioActualizado.nombre){
+                res.status(406).json({
+                    ok: false,
+                    msg: 'No puede realizar cambios como el nombre o el correo de un usuario de Google'
+                });
+            }
+            else{
+                res.json({
+                    ok: true,
+                    usuarioActualizado
+                });
+            }
         }
     }
     catch(error){
