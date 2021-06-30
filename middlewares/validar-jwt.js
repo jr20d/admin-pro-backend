@@ -29,10 +29,6 @@ const validarAdminRole = async (req, res, next) => {
     const uidPeticion = req.uid;
     const uid = req.params.id;
 
-    if (uidPeticion === uid){
-        return next();
-    }
-
     try {
         const usuarioDB = await Usuario.findById(uidPeticion);
         
@@ -41,6 +37,10 @@ const validarAdminRole = async (req, res, next) => {
                 ok: false,
                 msg: 'Usuario no existe'
             });
+        }
+
+        if (uidPeticion === uid){
+            return next();
         }
 
         if (usuarioDB.rol !== 'ADMIN_ROLE'){
