@@ -1,6 +1,8 @@
 const express = require('express');
 require('dotenv').config();
 
+const path = require('path');
+
 //CORS
 const cors = require('cors');
 
@@ -28,6 +30,11 @@ app.use('/api/hospitales', require('./routes/hospitales'));
 app.use('/api/medicos', require('./routes/medicos'));
 app.use('/api/todo', require('./routes/busquedas'));
 app.use('/api/uploads', require('./routes/uploads'));
+
+//Última ruta
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'public/index.html'));
+});
 
 /*app.get('/api/usuarios', (req, res) =>{
     res.status(400).json({
